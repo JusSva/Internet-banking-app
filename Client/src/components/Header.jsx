@@ -4,10 +4,11 @@ export default function Header (){
 
 
     return (
-        <>
-            <Link to={<Home />}>Sąskaitų sąrašas</Link>
-            <Link to={<Home />}>Nauja sąskaita</Link>
-            <Link to={<Home />}>Valdyti lėšas</Link>
-        </>
+        <div className='header d-flex gap-5 mt-4'>
+            <p><Link to={'/'}>Sąskaitų sąrašas</Link></p>
+            <p><Link to={'/'}>Nauja sąskaita</Link></p>
+            <p><Link to={'/'}>Pridėti lėšas</Link></p>
+            <p><Link to={'/'}>Nuskaičiuoti lėšas</Link></p>
+        </div>
     )
 }
