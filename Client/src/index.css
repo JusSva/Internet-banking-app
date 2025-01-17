@@ -3,3 +3,11 @@
 .header {
     justify-content: center;
 }
+
+.grey {
+    color: rgba(84, 83, 83, 0.77);
+}
+
+.name {
+    font-weight: bold;
+}

@@ -1,0 +1,14 @@
+/** 
+* Paste one or more documents here
+*/
+{
+  "_id": {
+    "$oid": "678a183f89a5a6f7ed927b1c"
+  },
+  
+"vardas":"Jonas",
+"pavarde":"Jonaitis",
+"saskaitosNumeris":"LT-752369845852155",
+"asmensKodas":"60459951852",
+"lesos":100000
+}
