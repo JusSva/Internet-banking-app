@@ -1,3 +1,5 @@
+import express from 'express';
+import multer from 'multer';
 import { Router } from 'express'
 import User from '../model/user.js'
 
@@ -57,5 +59,47 @@ router.delete('/api/users/delete/:id', async (req, res) => {
         res.status(500).json("Ivyko serverio klaida")
     }
 })
+
+// photo upload
+const storage = multer.diskStorage({
+    destination: function (req, file, next) {
+        next(null, './uploads');
+    },
+    filename: function (req, file, next) { 
+        next(null, Date.now() + '.jpg');
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Norint priimti duomenis JSON formatu
+router.use(express.json());
+
+// Nuotrauku atvaizdavimui skirta konfiguracine eilute
+router.use('/nuotraukos', express.static('uploads'));
+
+// Middleware priskyrimas
+const failuKelimas = (req, res, next) => {
+    console.log('Failu kelimas aktyvuotas');
+
+    if(req.query.zinute === 'true') 
+        return res.json('Gavome Jūsų žinutę');
+
+    next();
+}
+
+router.get('/api', failuKelimas, (req, res) => {
+    console.log(req.body);
+    res.json('Veikia');
+});
+
+router.post('/api', upload.single('nuotrauka'), (req, res) => {
+    // req.file savybėje nugula persiųsto failo, kuris jau buvo išsaugotas, duomenys
+    console.log(req.file);
+    console.log(req.body);
+    res.json('POST metodu duomenys gauti');
+});
+
+
 
 export default router

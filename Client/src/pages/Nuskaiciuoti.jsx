@@ -22,8 +22,6 @@ export default function Prideti () {
         e.preventDefault()
 
         if (!newAmount) {
-            console.log("aktyvavosi");
-            
             setNewAmount(data.lesos)
         }
         let addedAmount = inputRef.current.value;
@@ -36,7 +34,6 @@ export default function Prideti () {
             })
             return
         }
-        console.log("data.lesos:", data.lesos);
         data.lesos = newTotal
         
         axios.put('/api/users/edit/' + id, data)

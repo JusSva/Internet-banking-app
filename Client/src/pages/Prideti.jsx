@@ -22,18 +22,13 @@ export default function Prideti () {
         e.preventDefault()
 
         if (!newAmount) {
-            console.log("aktyvavosi");
-            
             setNewAmount(data.lesos)
         }
         let addedAmount = inputRef.current.value;
         data.lesos = data.lesos + parseFloat(addedAmount)
-        console.log("data.lesos:", data.lesos);
-        
         
         axios.put('/api/users/edit/' + id, data)
         .then(resp => {
-            console.log(resp.data.message);
             setAlert({
                 message: resp.data.message,
                 status: "success"

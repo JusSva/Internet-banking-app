@@ -8,18 +8,18 @@ export default model('Users', new Schema({
     lesos: {
         type: Number,
         default: 0
-    }
+    },
     // ,
     // // Laiko Žymų (timestamp) sukūrimas:
-    // createdAt: {
-    //     type: Date,
+    createdAt: {
+        type: Date,
     //     // Dabartinė data ir laikas priskiriamas pagal nutylėjimą:
-    //     default: Date.now()
-    // },
-    // updatedAt: {
-    //     type: Date,
-    //     default: Date.now()
-    // }
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
+    }
 }) );
 
 
