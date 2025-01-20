@@ -36,11 +36,17 @@ router.post('/api/users/add', async (req, res) => {
 // saskaitos (lesu) redagavimas 
 router.put('/api/users/edit/:id', async (req, res) => {
     try {
-        await User.findByIdAndUpdate(req.params.id, req.body)
-    } catch {
-        res.status(500).json("Ivyko serverio klaida")
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ message: "vartotojas nerastas" });
+        }
+        res.json({ message: "Lesu kiekis sekmingai atnaujintas", updatedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json("Ivyko serverio klaida");
     }
-})
+});
+
 
 // saskaitos istrynimas
 router.delete('/api/users/delete/:id', async (req, res) => {

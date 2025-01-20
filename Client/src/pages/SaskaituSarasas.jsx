@@ -72,8 +72,8 @@ export default function Home () {
                             <p className="grey">Lesos:</p>
                             <p>{item.lesos} Eur</p>
                         </div>
-                        <button className='button btn'><Link to={"/prideti/" + item._id}>Prideti Lesas</Link></button>
-                        <button className='button btn'><Link to={"/nuskaiciuoti/" + item._id}>Nuskaiciuoti Lesas</Link></button>
+                        <Link to={"/prideti/" + item._id}><button className='button btn'>Prideti Lesas</button></Link>
+                        <Link to={"/nuskaiciuoti/" + item._id}><button className='button btn'>Nuskaiciuoti Lesas</button></Link>
                         <button className="button btn btn-danger" onClick={() => handleDelete(item._id, item.lesos)}>Istrinti Saskaita</button>
                     </div>
                 )}
