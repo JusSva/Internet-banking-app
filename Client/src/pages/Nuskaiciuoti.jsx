@@ -9,7 +9,6 @@ export default function Prideti () {
     const [newAmount, setNewAmount] = useState()
     const [refresh, setRefresh] = useState(false)
     const [alert, setAlert] = useState([])
-    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get('/api/users/' + id)
@@ -44,17 +43,7 @@ export default function Prideti () {
                 status: "success"
             })
             setRefresh(!refresh)
-        })
-        // bandziau padaryti, kad alert message atsirastu po consistent amount of time
-        // nuo pinigu pridejimo
-        // Del to yra 2 timeouts, nes tik su vienu niekaip nespedavo message atsirasti
-        // Galvoju taip pat ar is viso palikti ta zinute, kadangi jinai atsiranda inconsistently?
-        setTimeout(() => {
-            setTimeout(() => {
-                navigate('/saskaitos')
-            }, 2000)
-        }, 1000)
-        
+        })        
     }
 
     return (

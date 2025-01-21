@@ -6,9 +6,13 @@ export default function Home () {
     const [data, setData] = useState([])
     const [alert, setAlert] = useState([])
     const [refresh, setRefresh] = useState(false)
+    const [sort, setSort] = useState()
 
     useEffect(() => {
-        axios.get('/api/users')
+        const params = {}
+        params.sort = "asc"
+
+        axios.get('/api/users', { params })
         .then(resp => setData(resp.data))
         .catch(err => setAlert({
             message: err.response.data,
@@ -25,7 +29,6 @@ export default function Home () {
                 message: "Saskaitos istrynimas, kuomet joje yra lesu, yra negalimas",
                 status: "danger"
             })
-            
             return 
         }
         axios.delete('api/users/delete/' + id)
@@ -34,7 +37,6 @@ export default function Home () {
                 message: resp.data,
                 status: 'success'
             })
-
             setRefresh(!refresh)
         })
         .catch(err => setAlert({
@@ -42,8 +44,6 @@ export default function Home () {
             status: 'warning'
         }))
     }
-
-
 
     return (
         <>
@@ -55,27 +55,30 @@ export default function Home () {
                 }
             <div className="output">
                 {data.map(item => 
-                    <div className="d-flex gap-5 p-4">
-                        <div className="zmogus">
-                            <p className='grey'>Savininko vardas, pavarde:</p>
-                            <p className='name'>{item.vardas} {item.pavarde}</p>
+                    <>
+                        <hr />
+                        <div className="d-flex gap-5 p-4">
+                            <div className="zmogus">
+                                <p className='grey'>Savininko vardas, pavarde:</p>
+                                <p className='name'>{item.vardas} {item.pavarde}</p>
+                            </div>
+                            <div className="saskaita">
+                                <p className='grey'>Saskaitos numeris:</p>
+                                <p>{item.saskaitosNumeris}</p>
+                            </div>
+                            <div className="kodas">
+                                <p className='grey'>Asmens kodas:</p>
+                                <p>{item.asmensKodas}</p>
+                            </div>
+                            <div className="lesos">
+                                <p className="grey">Lesos:</p>
+                                <p>{item.lesos} Eur</p>
+                            </div>
+                            <Link to={"/prideti/" + item._id}><button className='button btn'>Prideti Lesas</button></Link>
+                            <Link to={"/nuskaiciuoti/" + item._id}><button className='button btn'>Nuskaiciuoti Lesas</button></Link>
+                            <button className="button btn btn-danger" onClick={() => handleDelete(item._id, item.lesos)}>Istrinti Saskaita</button>
                         </div>
-                        <div className="saskaita">
-                            <p className='grey'>Saskaitos numeris:</p>
-                            <p>{item.saskaitosNumeris}</p>
-                        </div>
-                        <div className="kodas">
-                            <p className='grey'>Asmens kodas:</p>
-                            <p>{item.asmensKodas}</p>
-                        </div>
-                        <div className="lesos">
-                            <p className="grey">Lesos:</p>
-                            <p>{item.lesos} Eur</p>
-                        </div>
-                        <Link to={"/prideti/" + item._id}><button className='button btn'>Prideti Lesas</button></Link>
-                        <Link to={"/nuskaiciuoti/" + item._id}><button className='button btn'>Nuskaiciuoti Lesas</button></Link>
-                        <button className="button btn btn-danger" onClick={() => handleDelete(item._id, item.lesos)}>Istrinti Saskaita</button>
-                    </div>
+                    </>
                 )}
             </div>
         </>

@@ -8,7 +8,7 @@ const router = Router()
 // visi users/saskaitos
 router.get('/api/users', async (req, res) => {
     try {
-        res.json(await User.find())
+        res.json(await User.find().sort({ pavarde: 'asc'}))
         // res.json("veikia")
     } catch {
         res.status(500).json("Ivyko serverio klaida")
